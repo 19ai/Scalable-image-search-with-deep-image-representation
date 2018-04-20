@@ -1,5 +1,4 @@
-# Scalable Image Retrieval
-**Project Topic** - Scalable Image Search with Deep Image Representation
+# Scalable Image Search with Deep Image Representation
 
 ## Introduction
 
