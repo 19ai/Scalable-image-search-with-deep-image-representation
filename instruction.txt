@@ -1,0 +1,20 @@
+1. For installation virtual environment, please run the following commands:
+
+    ./installation_1.sh
+    source activate vir_env
+    ./installation_2.sh
+
+2. For activate virtual environment and set up PATH variables, please run the following command:
+source activate vir_env
+source setup.sh
+3. For training the model and pre-compute post-processing data, please run the following commands:
+python train.py
+python pre_compute_descriptor.py
+4. For testing the model with query images inside a folder, please run the following command:
+python test_with_statistics.py -n path/to/folder/
+5. For start application's server, please run the following command:
+python app.py
+
+Notice:
+Step 1 needs to be done only once.
+For a new session, command 2 needs to be run BEFORE running command 3, 4 or 5

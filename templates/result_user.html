@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+div.gallery {
+    margin: 5px;
+    border: 1px solid #ccc;
+    float: left;
+
+}
+
+div.gallery:hover {
+    border: 1px solid #777;
+}
+
+
+p {
+    font-size: 150%;
+    padding: 15px;
+    text-align: center;
+}
+
+div{
+  float:left;
+}
+.new_line{
+  clear:both;
+  margin-top: 10px;
+}
+
+a {
+    text-decoration: none;
+    display: inline-block;
+}
+
+a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+.previous {
+    background-color: #4CAF50;
+    color: white;
+    position:relative;
+    margin-top: 10px;
+    margin-left: 5px;
+    top:0;
+    left:0;
+}
+
+.home {
+    background-color: #4CAF50;
+    color: white;
+    position:relative;
+    margin-top: 10px;
+    margin-left: 5px;
+    top:0;
+    left:0;
+}
+
+.next {
+    background-color: #4CAF50;
+    color: white;
+}
+
+table {
+    font-family: arial, sans-serif;
+    font-size: 150%;
+    border-collapse: collapse;
+    width: 800px;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+    </style>
+</head>
+<body>
+<div>
+<a onclick="goBack()" style="padding: 8px 16px;">&laquo;Previous</a>
+<a href="/{{user}}" style="padding: 8px 16px;"> New Query</a>
+<a href="{{url_for('logout', user=user)}}" style="padding: 8px 16px;">Logout</a>
+</div>
+
+<br>
+
+{% if error1 %}
+<b><font size="10">Sorry, we do not have the image you are looking for!</font></b>
+<br>
+{% elif error2 %}
+<b><font size="10">We have not found the query image. Here we show a similar one:</font></b>
+<br>
+<div class="new_line">
+    <div class="gallery">
+        <img src="{{url_for('send_image', folder = initial_images[0],  filename = initial_images[1])}}" height={{height}}>
+        <p>Query Image</p>
+    </div>
+
+    <div class="gallery">
+        <img src="{{url_for('send_image', folder = pp_images[0],  filename = pp_images[1])}}" height={{height}}>
+        <p>Result Image</p>
+    </div>
+</div>
+{% else %}
+<br>
+<div class="new_line">
+    <div class="gallery">
+        <img src="{{url_for('send_image', folder = initial_images[0],  filename = initial_images[1])}}" height={{height}}>
+        <p>Query Image</p>
+    </div>
+
+    <div class="gallery">
+        <img src="{{url_for('send_image', folder = pp_images[0],  filename = pp_images[1])}}" height={{height}}>
+        <p>Result Image</p>
+    </div>
+</div>
+{% endif %}
+
+
+{% if information[0] %}
+<div class="new_line">
+    <table>
+        <tr>
+            <th>Field</th>
+            <th>Information</th>
+        </tr>
+        <tr>
+            <td>Author</td>
+            <td>{{information[0]}}</td>
+        </tr>
+        <tr>
+            <td>Born-Died</td>
+            <td>{{information[1]}}</td>
+        </tr>
+        <tr>
+            <td>Title</td>
+            <td>{{information[2]}}</td>
+        </tr>
+        <tr>
+            <td>Date</td>
+            <td>{{information[3]}}</td>
+        </tr>
+        <tr>
+            <td>Technique</td>
+            <td>{{information[4]}}</td>
+        </tr>
+        <tr>
+            <td>Location</td>
+            <td>{{information[5]}}</td>
+        </tr>
+        <tr>
+            <td>URL</td>
+            <td><a target="_blank" href={{information[6]}}>{{information[6]}}</a></td>
+        </tr>
+        <tr>
+            <td>Form</td>
+            <td>{{information[7]}}</td>
+        </tr>
+        <tr>
+            <td>Type</td>
+            <td>{{information[8]}}</td>
+        </tr>
+        <tr>
+            <td>School</td>
+            <td>{{information[9]}}</td>
+        </tr>
+        <tr>
+            <td>Timeline</td>
+            <td>{{information[10]}}</td>
+        </tr>
+    </table>
+</div>
+{% endif %}
+
+
+<script>
+function goBack() {
+    window.history.back();
+}
+
+
+</script>
+</body>
+
+</html>

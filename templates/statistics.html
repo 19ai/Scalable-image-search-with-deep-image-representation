@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+#slidecontainer {
+    width: 100%;
+}
+
+.slider {
+    -webkit-appearance: none;
+    width: 60%;
+    height: 15px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+.slider:hover {
+    opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    background: #4CAF50;
+    cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+    width: 15px;
+    height: 15px;
+    background: #4CAF50;
+    cursor: pointer;
+}
+
+#myRange1 {
+margin-top: 20px;
+}
+
+div.gallery {
+    margin: 5px;
+    border: 1px solid #ccc;
+    float: left;
+    width: 220px;
+}
+
+div.gallery:hover {
+    border: 1px solid #777;
+}
+
+div.gallery img {
+    width: 100%;
+    height: auto;
+}
+
+div.desc {
+    padding: 5px;
+    text-align: center;
+}
+
+
+table {
+    font-family: arial, sans-serif;
+    font-size: 100%;
+    border-collapse: collapse;
+    width: 1000px;
+    margin-bottom: 20px;
+
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+
+
+
+
+
+    </style>
+</head>
+<body>
+<div>
+    {% if information %}
+    <strong>RESULT</strong><br>
+    <table>
+        <tr>
+            <th>Parameter</th>
+            <th>Threshold/Value</th>
+        </tr>
+        {% for list in information%}
+        <tr>
+            {% for item in list %}
+            <td> {{ item }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+</div>
+<div>
+    {% if statistics %}
+    <strong>STATISTICS-1</strong><br>
+    <table>
+        <tr>
+            <th>Type</th>
+            <th>Number of predictions</th>
+            <th>Mean</th>
+            <th>Standard deviation</th>
+            <th>Min</th>
+            <th>Max</th>
+        </tr>
+        {% for list in statistics %}
+        <tr>
+            {% for item in list %}
+            <td> {{ item }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+
+    {% if extra_statistics %}
+    <strong>STATISTICS-2</strong><br>
+    <table>
+        <tr>
+            <th>Type</th>
+            <th>Accuracy</th>
+            <th>Logistic regression threshold</th>
+
+        </tr>
+        {% for list in extra_statistics %}
+        <tr>
+            {% for item in list %}
+            <td> {{ item }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+
+    {% if extra_extra_statistics %}
+    <strong>STATISTICS-3</strong><br>
+    <table>
+        <tr>
+            <th>Prediction-Prediction</th>
+            <th>Number of prediction</th>
+
+        </tr>
+        {% for list in extra_extra_statistics %}
+        <tr>
+            {% for item in list %}
+            <td> {{ item }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+
+    <form id="calculate" action="{{ url_for('calculate')}}" method="POST">
+        <strong>SETTING</strong><br>
+        <div id="slidecontainer1">
+            <input type="range" min="0" max="1" value="{{first_thres}}" step="0.01" class="slider" id="myRange1"
+                   name="myRange1">
+            Cosine similarity: <input id=x name="x" size="2" value="{{first_thres}}" maxlength="4" min="0" max="1">
+        </div>
+        <div id="slidecontainer2">
+            <input type="range" min="0" max="1" value="{{second_thres}}" step="0.01" class="slider" id="myRange2"
+                   name="myRange2">
+            % found matching points: <input id=y name="y" size="2" value="{{second_thres}}" maxlength="4" min="0"
+                                            max="1">
+        </div>
+        <div id="slidecontainer3">
+            <input type="range" min="0" max="30" value="{{third_thres}}" class="slider" id="myRange3" name="myRange3">
+            Minimum key points: <input id=z name="z" size="2" value="{{third_thres}}" maxlength="4" min="0" max="30">
+        </div>
+        <div>
+            {% if messages %}
+            {% for message in messages %}
+            <br>{{ message }}
+            {% endfor %}
+            {% endif %}
+        </div>
+
+        <input class=button id=submit type="submit" value="Submit" style="font-size : 20px;">
+
+    </form>
+    <br>
+    <strong>GRAPHS</strong><br>
+    {% for image in image_name %}
+    <div class="gallery">
+        <img src="{{url_for('send_image', filename = image)}}">
+        <div class="desc">{{descriptions[loop.index-1]}}</div>
+
+    </div>
+    {% endfor %}
+
+
+
+
+    <script>
+var slider1 = document.getElementById("myRange1");
+var output1 = document.getElementById("x");
+output1.innerHTML = slider1.value;
+
+slider1.oninput = function() {
+  document.getElementById('x').value = this.value;
+}
+
+document.getElementById('x').onkeypress = function(e){
+    if (!e) e = window.event;
+    var keyCode = e.keyCode || e.which;
+    var nb = document.getElementById('x').value
+    if (keyCode == '13' && !isNaN(nb) && isFinite(nb)){
+      document.getElementById('myRange1').value = nb
+    }
+  }
+
+var slider2 = document.getElementById("myRange2");
+var output2 = document.getElementById("y");
+output2.innerHTML = slider2.value;
+
+slider2.oninput = function() {
+  document.getElementById('y').value = this.value;
+}
+document.getElementById('y').onkeypress = function(e){
+    if (!e) e = window.event;
+    var keyCode = e.keyCode || e.which;
+    var nb = document.getElementById('y').value
+    if (keyCode == '13' && !isNaN(nb) && isFinite(nb)){
+      document.getElementById('myRange2').value = nb
+    }
+  }
+
+var slider3 = document.getElementById("myRange3");
+var output3 = document.getElementById("z");
+output3.innerHTML = slider3.value;
+
+slider3.oninput = function() {
+  document.getElementById('z').value = this.value;
+}
+document.getElementById('z').onkeypress = function(e){
+    if (!e) e = window.event;
+    var keyCode = e.keyCode || e.which;
+    var nb = document.getElementById('z').value
+    if (keyCode == '13' && !isNaN(nb) && isFinite(nb)){
+      document.getElementById('myRange3').value = nb
+    }
+  }
+
+
+
+
+
+
+
+    </script>
+
+</body>
+</html>

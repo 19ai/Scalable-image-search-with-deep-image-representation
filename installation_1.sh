@@ -1,0 +1,1 @@
+conda create -y --name vir_env
