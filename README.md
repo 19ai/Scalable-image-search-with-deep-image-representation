@@ -3,7 +3,7 @@
 
 ## Introduction
 
-Here is the implementation for my master thesis, which I complete in February 2018, on the topic of Image Retrieval. An image retrieval model is a set of algorithms for browsing, searching and retrieving images from a large database of images. Generally, given an input image from a user, an image retrieval model needs to compare that image with all images in a particular database, and returns the most similar image to user.
+Here is the implementation for my master thesis, which I completed in February 2018, in the topic of Image Retrieval. An image retrieval model is a set of algorithms for browsing, searching and retrieving images from a large database of images. Generally, given an input image from a user, an image retrieval model needs to compare that image with all images in a particular database, and returns the most similar image to user.
 
 Image retrieval models in realistic scenarios have to deal with two main challenges: Large-scale datasets of unlabeled images and response time. Indeed, with the growth of Internet as well as widespread of media, images could be now easily taken from numerous sources, leading to huge collections of image. When image datasets could be updated everyday, it is neither efficient nor scalable to re-train a model whenever
 new images are added. Convolutional Neural Networks have created new perspectives for Computer Vision and have been widely appreciated as an effective way to extract features for image retrieval tasks.
