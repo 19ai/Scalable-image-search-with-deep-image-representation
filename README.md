@@ -4,28 +4,35 @@
 ## Introduction
 
 Here is the implementation for my master thesis, which I complete in February 2018, on the topic of Image Retrieval. An image retrieval model is a set of algorithms for browsing, searching and retrieving images from a large database of images. Generally, given an input image from a user, an image retrieval model needs to compare that image with all images in a particular database, and returns the most similar image to user.
+
 Image retrieval models in realistic scenarios have to deal with two main challenges: Large-scale datasets of unlabeled images and response time. Indeed, with the growth of Internet as well as widespread of media, images could be now easily taken from numerous sources, leading to huge collections of image. When image datasets could be updated everyday, it is neither efficient nor scalable to re-train a model whenever
 new images are added. Convolutional Neural Networks have created new perspectives for Computer Vision and have been widely appreciated as an effective way to extract features for image retrieval tasks.
-In this master thesis, based on the well-known pre-trained VGG model, which are trained over 1000 classes, we propose a way to extract convolutional features based on semantic information predicted in the target image, without the need for label of image. By using Class Activation Maps (CAMs) and linear as well as non-linear operations including weighting, pooling and aggregation, we could encode every image by a
-fix-size vector, used for image similarity measurement. In the post-processing stage, we address the second challenge mentioned above: response time. By performing feature extraction directly on images and then feature matching, we could fine-tune initial result
+
+In this master thesis, based on the well-known pre-trained VGG model, which are trained over 1000 classes, we propose a way to extract convolutional features based on semantic information predicted in the target image, without the need for label of image. By using Class Activation Maps (CAMs) and linear as well as non-linear operations including weighting, pooling and aggregation, we could encode every image by a fix-size vector, used for image similarity measurement. In the post-processing stage, we address the second challenge mentioned above: response time. By performing feature extraction directly on images and then feature matching, we could fine-tune initial result
 with much better accuracy, and less than a second for computation, which is to the best of our knowledge, faster than all introduced Image Retrieval steps. Furthermore, our model has an advantage of well-scalable to huge datasets.
+
 We evaluate our model on an image collection of European fine arts, namely "Web Gallery of Art", including 43690 image representing painting, sculptures, etc. We obtain an outstanding precision of 99.98% with less than 2 seconds for responding a query image.
 
 ## Pre-requisites
 
 The training phase of this project is run on GPU, with tensorflow backend. Therefore please make sure that your machine has at least 6GB GPU
 Please install the following libraries/frameworks to run our code:
+
 - **Tensorflow** 
 - **Numpy** 
 - **OpenCV** 
 - **Keras** 
+
 If you want to run the web application, please install the following framework:
+
 - **flask** 
 - **flask_migrate** 
 - **flask_script** 
 - **flask_mail** 
 - **flask_user** 
+
 We highly recommend you to create a virtual environment by using Anaconda. If you follow that suggestion, you could run the following 3 commands on terminal sequentially to complete the set up:
+
 - **./installation_1.sh**: Create a virtual environment
 - **source activate vir_env**: Activate the created environment 
 - **./installation_2.sh**: Install necessary stuff
